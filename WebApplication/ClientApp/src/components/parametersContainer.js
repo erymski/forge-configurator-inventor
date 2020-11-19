@@ -70,6 +70,9 @@ export class ParametersContainer extends Component {
             <div className="parametersContainer">
                 <div className="pencilContainer">
                 </div>
+                <div>
+                    <a href= {this.props.activeProject.objDownloadUrl} target="_blank">Open in AR Viewer</a>
+                </div>
                 <div className="parameters">
                 {
                     parameterList ?

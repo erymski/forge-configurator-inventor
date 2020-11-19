@@ -54,6 +54,7 @@ namespace WebApplication.Processing
             await new ExtractParameters(_publisher).InitializeAsync(_paths.ExtractParameters);
             await new UpdateParameters(_publisher).InitializeAsync(_paths.UpdateParameters);
             await new CreateBOM(_publisher).InitializeAsync(_paths.CreateBOM);
+            await new CreateOBJ(_publisher).InitializeAsync(_paths.CreateOBJ);
             await new ExportDrawing(_publisher).InitializeAsync(_paths.ExportDrawing);
 
             await _transferData.InitializeAsync(_paths.EmptyExe);
@@ -74,6 +75,7 @@ namespace WebApplication.Processing
             await new ExtractParameters(_publisher).CleanUpAsync();
             await new UpdateParameters(_publisher).CleanUpAsync();
             await new CreateBOM(_publisher).CleanUpAsync();
+            await new CreateOBJ(_publisher).CleanUpAsync();
             await new ExportDrawing(_publisher).CleanUpAsync();
 
             await _transferData.CleanUpAsync();

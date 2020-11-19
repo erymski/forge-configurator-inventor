@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Addin Type="Plugin">
+  <ClassId>{8103f6d5-7ca0-4259-a28a-aea844abff68}</ClassId>
+  <ClientId>{8103f6d5-7ca0-4259-a28a-aea844abff68}</ClientId>
+  <DisplayName>ToObjPlugin</DisplayName>
+  <Description>a ToObjPlugin</Description>
+  <Assembly>ToObjPlugin.dll</Assembly>
+</Addin>

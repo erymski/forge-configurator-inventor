@@ -92,6 +92,11 @@ namespace WebApplication.Utilities
         public string BOM => ToFullName(LocalName.BOM);
 
         /// <summary>
+        /// Filename for OBJ.
+        /// </summary>
+        public string Obj => ToFullName(LocalName.OBJ);
+
+        /// <summary>
         /// Filename for JSON with DrawingsList.
         /// </summary>
         public string DrawingsList => ToFullName(LocalName.DrawingsList);

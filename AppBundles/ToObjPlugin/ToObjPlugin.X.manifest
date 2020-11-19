@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+  <assemblyIdentity name="ToObjPlugin" version="1.0.0.0"></assemblyIdentity>
+  <clrClass clsid="{8103f6d5-7ca0-4259-a28a-aea844abff68}" progid="ToObjPlugin.PluginServer" threadingModel="Both" name="ToObjPlugin.PluginServer"></clrClass>
+  <file name="ToObjPlugin.dll" hashalg="SHA1"></file>
+</assembly>

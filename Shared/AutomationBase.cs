@@ -29,7 +29,7 @@ namespace Shared
     {
         protected readonly InventorServer _inventorApplication;
 
-        public AutomationBase(InventorServer inventorApp)
+        protected AutomationBase(InventorServer inventorApp)
         {
             _inventorApplication = inventorApp;
         }
