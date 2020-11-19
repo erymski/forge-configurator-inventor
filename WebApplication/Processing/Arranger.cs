@@ -93,7 +93,7 @@ namespace WebApplication.Processing
                         BomUrl              = urls[5],
                         DrawingsListUrl     = urls[6],
                         AdoptMessagesUrl    = urls[7],
-                        ObjUrl              = urls[7],
+                        ObjUrl              = urls[8],
                         TLA                 = tlaFilename
                     };
         }

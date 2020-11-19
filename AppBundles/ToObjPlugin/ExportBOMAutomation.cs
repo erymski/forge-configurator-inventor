@@ -23,22 +23,21 @@ using System.IO;
 using System.Linq;
 using Autodesk.Forge.DesignAutomation.Inventor.Utils;
 using Inventor;
+using Shared;
 using Path = System.IO.Path;
 
 namespace ToObjPlugin
 {
     [ComVisible(true)]
-    public class SampleAutomation
+    public class ExportBOMAutomation : AutomationBase
     {
         private const string OutputFile = "result.obj";
-        private readonly InventorServer _inventorApplication;
 
-        public SampleAutomation(InventorServer inventorApp)
+        public ExportBOMAutomation(InventorServer inventorApp) : base(inventorApp)
         {
-            _inventorApplication = inventorApp;
         }
 
-        public void Run(Document doc)
+        public override void ExecWithArguments(Document doc, NameValueMap map)
         {
             try
             {
@@ -95,31 +94,5 @@ namespace ToObjPlugin
                 LogError("Processing failed. " + e.ToString());
             }
         }
-
-        public void RunWithArguments(Document doc, NameValueMap _)
-        {
-            LogTrace("Redirecting to 'Run'");
-            Run(doc);
-        }
-
-        #region Logging utilities
-
-        /// <summary>
-        /// Log message with 'trace' log level.
-        /// </summary>
-        private static void LogTrace(string message)
-        {
-            Trace.TraceInformation(message);
-        }
-
-        /// <summary>
-        /// Log message with 'error' log level.
-        /// </summary>
-        private static void LogError(string message)
-        {
-            Trace.TraceError(message);
-        }
-
-        #endregion
     }
 }
