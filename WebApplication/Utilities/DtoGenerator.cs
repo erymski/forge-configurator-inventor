@@ -65,13 +65,14 @@ namespace WebApplication.Utilities
 
             var localNames = project.LocalNameProvider(hash);
             return new TProjectDTOBase
-            {
-                Svf = _localCache.ToDataUrl(localNames.SvfDir),
-                        BomDownloadUrl = bomDownloadUrl,
-                        BomJsonUrl = bomJsonUrl,
-                        ModelDownloadUrl = modelDownloadUrl,
-                        Hash = hash,
-                    };
+                {
+                    Svf = _localCache.ToDataUrl(localNames.SvfDir),
+                    BomDownloadUrl = bomDownloadUrl,
+                    BomJsonUrl = bomJsonUrl,
+                    ObjDownloadUrl = _localCache.ToDataUrl(localNames.Obj),
+                    ModelDownloadUrl = modelDownloadUrl,
+                    Hash = hash,
+                };
         }
 
         /// <summary>
