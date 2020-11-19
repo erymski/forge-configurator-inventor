@@ -130,7 +130,8 @@ namespace WebApplication.State
             await Task.WhenAll(
                 ossBucket.DownloadFileAsync(ossNames.ModelView, tempFile.Name),
                 ossBucket.DownloadFileAsync(ossNames.Parameters, localNames.Parameters),
-                ossBucket.DownloadFileAsync(ossNames.Bom, localNames.BOM)
+                ossBucket.DownloadFileAsync(ossNames.Bom, localNames.BOM),
+                ossBucket.DownloadFileAsync(ossNames.Obj, localNames.Obj)
             );
 
             // extract SVF from the archive

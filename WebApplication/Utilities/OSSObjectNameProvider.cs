@@ -63,6 +63,11 @@ namespace WebApplication.Utilities
         /// JSON file with BOM data.
         /// </summary>
         public const string BOM = "bom.json";
+
+        /// <summary>
+        /// OBJ for the model state.
+        /// </summary>
+        public const string OBJ = "model.obj";
         
         /// <summary>
         /// Drawing in format ForgeView can load and show
@@ -207,6 +212,11 @@ namespace WebApplication.Utilities
         /// Filename for JSON with BOM data.
         /// </summary>
         public string Bom => ToFullName(LocalName.BOM);
+
+        /// <summary>
+        /// Filename for OBJ data.
+        /// </summary>
+        public string Obj => ToFullName(LocalName.OBJ);
 
         /// <summary>
         /// Filename for JSON with BOM data.

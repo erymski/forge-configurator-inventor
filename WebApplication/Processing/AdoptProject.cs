@@ -40,6 +40,7 @@ namespace WebApplication.Processing
                     new CreateSVF(publisher),
                     new CreateThumbnail(publisher),
                     new CreateBOM(publisher),
+                    new CreateOBJ(publisher),
                     new ExtractParameters(publisher))
         {}
 

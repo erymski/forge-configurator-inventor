@@ -397,6 +397,7 @@ namespace WebApplication.Processing
                 bucket.CopyAsync(ossFrom.GetCurrentModel(isAssembly), ossTo.GetCurrentModel(isAssembly)),
                 bucket.CopyAsync(ossFrom.ModelView, ossTo.ModelView),
                 bucket.CopyAsync(ossFrom.Bom, ossTo.Bom),
+                bucket.CopyAsync(ossFrom.Obj, ossTo.Obj),
                 bucket.CopyAsync(ossFrom.StatsUpdate, ossTo.StatsUpdate));
 
             _logger.LogInformation($"Cache the project locally ({hashTo})");

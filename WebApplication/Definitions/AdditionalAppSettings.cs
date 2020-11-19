@@ -30,7 +30,7 @@ namespace WebApplication.Definitions
         public string CreateThumbnail { get; set; }
         public string ExtractParameters { get; set; }
         public string UpdateParameters { get; set; }
-        public string CreateSAT { get; set; }
+        public string CreateOBJ { get; set; }
         public string CreateRFA { get; set; }
         public string CreateBOM { get; set; }
         public string ExportDrawing { get; set; }

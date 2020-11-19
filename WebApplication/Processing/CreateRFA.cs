@@ -16,8 +16,6 @@
 // UNINTERRUPTED OR ERROR FREE.
 /////////////////////////////////////////////////////////////////////
 
-using Autodesk.Forge.DesignAutomation.Model;
-using System.Collections.Generic;
 using WebApplication.Definitions;
 
 namespace WebApplication.Processing
