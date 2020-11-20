@@ -38,6 +38,9 @@ namespace WebApplication.Utilities
         private readonly LinkGenerator _linkGenerator;
         private readonly LocalCache _localCache;
 
+        // HACK!
+        public static string Host { get; set; }
+
         public DtoGenerator(LinkGenerator linkGenerator, LocalCache localCache)
         {
             _linkGenerator = linkGenerator;
@@ -69,10 +72,20 @@ namespace WebApplication.Utilities
                     Svf = _localCache.ToDataUrl(localNames.SvfDir),
                     BomDownloadUrl = bomDownloadUrl,
                     BomJsonUrl = bomJsonUrl,
-                    ObjDownloadUrl = _localCache.ToDataUrl(localNames.Obj),
+                    ObjDownloadUrl = MakeObjDeepLink(localNames),
                     ModelDownloadUrl = modelDownloadUrl,
                     Hash = hash,
                 };
+        }
+
+        /// <summary>
+        /// Generate a deep link URI to be used for handling in Android app.
+        /// https://developer.android.com/training/app-links/deep-linking
+        /// </summary>
+        private string MakeObjDeepLink(LocalNameProvider localNames)
+        {
+            var relativeUrl = _localCache.ToDataUrl(localNames.Obj);
+            return $"ld2020://{Host}{relativeUrl}";
         }
 
         /// <summary>

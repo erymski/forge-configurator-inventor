@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 using WebApplication.Services;
-using WebApplication.State;
+using WebApplication.Utilities;
 
 namespace WebApplication.Middleware
 {
@@ -52,6 +52,9 @@ namespace WebApplication.Middleware
                 profileProvider.Token = token;
                 break;
             }
+
+            // HACK! to detect host name (need to simplify work with ngrok)
+            DtoGenerator.Host = context.Request.Host.Value;
 
             // Call the next delegate/middleware in the pipeline
             await _next(context);
