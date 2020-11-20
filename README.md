@@ -1,3 +1,11 @@
+# Learning Days 2020 demo based on *Forge Configurator Inventor*
+
+The demo generates OBJ assets (locally cached as ZIP) to be able to open on mobile Android Unity app via deep links.
+
+1. Launch as `dotnet run --urls http://localhost:5000`.
+1. Run `ngrok http 5000`.
+1. Note the URL and open on mobile phone (need to install the app).
+
 # Forge Configurator Inventor
 Demo application showcasing Configuration with Design Automation for Inventor
 
