@@ -31,8 +31,6 @@ namespace ToObjPlugin
     [ComVisible(true)]
     public class ExportBOMAutomation : AutomationBase
     {
-        private const string OutputFile = "result.obj";
-
         public ExportBOMAutomation(InventorServer inventorApp) : base(inventorApp)
         {
         }
@@ -73,7 +71,9 @@ namespace ToObjPlugin
                             }
 
                             DataMedium data = _inventorApplication.TransientObjects.CreateDataMedium();
-                            data.FileName = Path.Combine(Directory.GetCurrentDirectory(), OutputFile);
+                            var outputDir = Path.Combine(Directory.GetCurrentDirectory(), "OBJ");
+                            Directory.CreateDirectory(outputDir);
+                            data.FileName = Path.Combine(outputDir, "result.obj");
 
                             translator.SaveCopyAs(doc, context, options, data);
                             LogTrace($"Export OBJ to '{data.FileName}'");
