@@ -11,7 +11,8 @@ namespace WebApplication.Processing
         public override string Description => "Generate OBJ from Inventor document";
 
         protected override string OutputUrl(ProcessingArgs projectData) => projectData.ObjUrl;
-        protected override string OutputName => "result.obj";
+        protected override string OutputName => "OBJ";
+        protected override bool IsOutputZip { get; } = true;
 
         /// <summary>
         /// Constructor.

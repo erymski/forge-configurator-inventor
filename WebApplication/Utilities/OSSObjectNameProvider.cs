@@ -67,7 +67,7 @@ namespace WebApplication.Utilities
         /// <summary>
         /// OBJ for the model state.
         /// </summary>
-        public const string OBJ = "model.obj";
+        public const string OBJ = "model.obj.zip";
         
         /// <summary>
         /// Drawing in format ForgeView can load and show

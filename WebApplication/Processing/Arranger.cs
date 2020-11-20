@@ -45,7 +45,7 @@ namespace WebApplication.Processing
         public readonly string InputParams = Unique(".input-params.json");
         public readonly string OutputModelIAM = Unique(".output-iam.zip");
         public readonly string OutputModelIPT = Unique(".output.ipt");
-        public readonly string OutputOBJ = Unique(".obj");
+        public readonly string OutputOBJ = Unique(".obj.zip");
         public readonly string OutputRFA = Unique(".rfa");
         public readonly string BomJson = Unique(".bom.json");
         public readonly string OutputDrawing = Unique(".drawing.zip");
