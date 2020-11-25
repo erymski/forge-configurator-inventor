@@ -25,7 +25,8 @@ import { fetchParameters, resetParameters, updateModelWithParameters } from '../
 import { showModalProgress, showUpdateFailed, invalidateDrawing } from '../actions/uiFlagsActions';
 import Button from '@hig/button';
 import Tooltip from '@hig/tooltip';
-import { Alert24 } from "@hig/icons";
+import { Alert24, ExternalLink24 } from "@hig/icons";
+import TextLink from "@hig/text-link";
 
 import ModalProgress from './modalProgress';
 import ModalFail from './modalFail';
@@ -70,8 +71,10 @@ export class ParametersContainer extends Component {
             <div className="parametersContainer">
                 <div className="pencilContainer">
                 </div>
-                <div>
-                    <a href= {this.props.activeProject.objDownloadUrl} target="_blank">Open in AR Viewer</a>
+                <div style={{ paddingLeft: "16px" }}>
+                    <TextLink link={this.props.activeProject.objDownloadUrl} target="_blank">
+                        <strong>Open in AR Viewer <ExternalLink24/> </strong>
+                    </TextLink>
                 </div>
                 <div className="parameters">
                 {

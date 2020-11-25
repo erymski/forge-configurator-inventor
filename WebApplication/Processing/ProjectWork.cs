@@ -136,7 +136,7 @@ namespace WebApplication.Processing
                 }
             }
 
-            var dto = _dtoGenerator.MakeProjectDTO<ProjectStateDTO>(storage, hash);
+            var dto = await _dtoGenerator.MakeProjectDTOAsync<ProjectStateDTO>(storage, hash);
             dto.Parameters = Json.DeserializeFile<InventorParameters>(localNames.Parameters);
 
             return (dto, stats, reportUrl);

@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Routing;
 using Shared;
 using WebApplication.Definitions;
@@ -37,21 +38,24 @@ namespace WebApplication.Utilities
     {
         private readonly LinkGenerator _linkGenerator;
         private readonly LocalCache _localCache;
+        private readonly UserResolver _userResolver;
 
         // HACK!
         public static string Host { get; set; }
 
-        public DtoGenerator(LinkGenerator linkGenerator, LocalCache localCache)
+        public DtoGenerator(LinkGenerator linkGenerator, LocalCache localCache, UserResolver userResolver)
         {
             _linkGenerator = linkGenerator;
             _localCache = localCache;
+            _userResolver = userResolver;
         }
 
         /// <summary>
         /// Create ProjectDTOBase based DTO and fill its properties.
         /// </summary>
-        public TProjectDTOBase MakeProjectDTO<TProjectDTOBase>(ProjectStorage projectStorage, string hash) where TProjectDTOBase: ProjectDTOBase, new()
+        public async Task<TProjectDTOBase> MakeProjectDTOAsync<TProjectDTOBase>(ProjectStorage projectStorage, string hash) where TProjectDTOBase: ProjectDTOBase, new()
         {
+            
             Project project = projectStorage.Project;
             // TODO: fix workaround for `_linkGenerator` check for null
             var modelDownloadUrl = _linkGenerator?.GetPathByAction(controller: "Download",
@@ -67,12 +71,13 @@ namespace WebApplication.Utilities
                                                                     values: new { projectName = project.Name, hash });
 
             var localNames = project.LocalNameProvider(hash);
+            var ossNames = projectStorage.GetOssNames(hash);
             return new TProjectDTOBase
                 {
                     Svf = _localCache.ToDataUrl(localNames.SvfDir),
                     BomDownloadUrl = bomDownloadUrl,
                     BomJsonUrl = bomJsonUrl,
-                    ObjDownloadUrl = MakeObjDeepLink(localNames),
+                    ObjDownloadUrl = await MakeObjDeepLink(ossNames),
                     ModelDownloadUrl = modelDownloadUrl,
                     Hash = hash,
                 };
@@ -82,21 +87,21 @@ namespace WebApplication.Utilities
         /// Generate a deep link URI to be used for handling in Android app.
         /// https://developer.android.com/training/app-links/deep-linking
         /// </summary>
-        private string MakeObjDeepLink(LocalNameProvider localNames)
+        private async Task<string> MakeObjDeepLink(OSSObjectNameProvider ossNames)
         {
-            var relativeUrl = _localCache.ToDataUrl(localNames.Obj);
-            return $"ld2020://{Host}{relativeUrl}";
+            var ossUrl = await _userResolver.AnonymousBucket.CreateSignedUrlAsync(ossNames.Obj);
+            return ossUrl.Replace("https", "ld2020");
         }
 
         /// <summary>
         /// Generate project DTO.
         /// </summary>
-        public ProjectDTO ToDTO(ProjectStorage projectStorage)
+        public async Task<ProjectDTO> ToDTOAsync(ProjectStorage projectStorage)
         {
             Project project = projectStorage.Project;
             var localAttributes = project.LocalAttributes;
 
-            var dto = MakeProjectDTO<ProjectDTO>(projectStorage, projectStorage.Metadata.Hash);
+            var dto = await MakeProjectDTOAsync<ProjectDTO>(projectStorage, projectStorage.Metadata.Hash);
             dto.Id = project.Name;
             dto.Label = !Regex.Match(project.Name, @"[\u0030-\u007a]").Success ? "_" + project.Name : project.Name;
             dto.Image = _localCache.ToDataUrl(localAttributes.Thumbnail);

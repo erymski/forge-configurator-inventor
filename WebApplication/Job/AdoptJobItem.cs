@@ -92,7 +92,7 @@ namespace WebApplication.Job
             }
 
             Logger.LogInformation($"ProcessJob (Adopt) {Id} for project {_projectInfo.Name} completed.");
-            await resultSender.SendSuccessAsync(_dtoGenerator.ToDTO(projectStorage), stats, reportUrl);
+            await resultSender.SendSuccessAsync(_dtoGenerator.ToDTOAsync(projectStorage), stats, reportUrl);
         }
     }
 }

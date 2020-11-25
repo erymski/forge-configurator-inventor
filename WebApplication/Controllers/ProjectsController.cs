@@ -66,7 +66,7 @@ namespace WebApplication.Controllers
                     // handle situation when project is not cached locally
                     await projectStorage.EnsureAttributesAsync(bucket, ensureDir: true);
 
-                    projectDTOs.Add(_dtoGenerator.ToDTO(projectStorage));
+                    projectDTOs.Add(await _dtoGenerator.ToDTOAsync(projectStorage));
                 }
                 catch (Exception e)
                 {
