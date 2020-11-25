@@ -108,6 +108,7 @@ namespace WebApplication.Processing
 
             FdaStatsDTO stats;
             var localNames = storage.GetLocalNames(hash);
+            var bucket = await _userResolver.GetBucketAsync();
 
             string reportUrl;
 
@@ -117,7 +118,6 @@ namespace WebApplication.Processing
                 _logger.LogInformation("Found cached data.");
 
                 // restore statistics
-                var bucket = await _userResolver.GetBucketAsync();
                 var statsNative = await bucket.DeserializeAsync<List<Statistics>>(storage.GetOssNames(hash).StatsUpdate);
                 stats = FdaStatsDTO.CreditsOnly(statsNative);
                 reportUrl = null;
@@ -136,7 +136,7 @@ namespace WebApplication.Processing
                 }
             }
 
-            var dto = await _dtoGenerator.MakeProjectDTOAsync<ProjectStateDTO>(storage, hash);
+            var dto = await _dtoGenerator.MakeProjectDTOAsync<ProjectStateDTO>(storage, hash, bucket);
             dto.Parameters = Json.DeserializeFile<InventorParameters>(localNames.Parameters);
 
             return (dto, stats, reportUrl);

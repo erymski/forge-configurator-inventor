@@ -53,7 +53,7 @@ namespace WebApplication.Utilities
         /// <summary>
         /// Create ProjectDTOBase based DTO and fill its properties.
         /// </summary>
-        public async Task<TProjectDTOBase> MakeProjectDTOAsync<TProjectDTOBase>(ProjectStorage projectStorage, string hash) where TProjectDTOBase: ProjectDTOBase, new()
+        public async Task<TProjectDTOBase> MakeProjectDTOAsync<TProjectDTOBase>(ProjectStorage projectStorage, string hash, OssBucket bucket) where TProjectDTOBase: ProjectDTOBase, new()
         {
             
             Project project = projectStorage.Project;
@@ -77,7 +77,7 @@ namespace WebApplication.Utilities
                     Svf = _localCache.ToDataUrl(localNames.SvfDir),
                     BomDownloadUrl = bomDownloadUrl,
                     BomJsonUrl = bomJsonUrl,
-                    ObjDownloadUrl = await MakeObjDeepLink(ossNames),
+                    ObjDownloadUrl = await MakeObjDeepLink(bucket, ossNames),
                     ModelDownloadUrl = modelDownloadUrl,
                     Hash = hash,
                 };
@@ -87,9 +87,9 @@ namespace WebApplication.Utilities
         /// Generate a deep link URI to be used for handling in Android app.
         /// https://developer.android.com/training/app-links/deep-linking
         /// </summary>
-        private async Task<string> MakeObjDeepLink(OSSObjectNameProvider ossNames)
+        private static async Task<string> MakeObjDeepLink(OssBucket bucket, OSSObjectNameProvider ossNames)
         {
-            var ossUrl = await _userResolver.AnonymousBucket.CreateSignedUrlAsync(ossNames.Obj);
+            var ossUrl = await bucket.CreateSignedUrlAsync(ossNames.Obj);
             return ossUrl.Replace("https", "ld2020");
         }
 
@@ -101,7 +101,7 @@ namespace WebApplication.Utilities
             Project project = projectStorage.Project;
             var localAttributes = project.LocalAttributes;
 
-            var dto = await MakeProjectDTOAsync<ProjectDTO>(projectStorage, projectStorage.Metadata.Hash);
+            var dto = await MakeProjectDTOAsync<ProjectDTO>(projectStorage, projectStorage.Metadata.Hash, await _userResolver.GetBucketAsync());
             dto.Id = project.Name;
             dto.Label = !Regex.Match(project.Name, @"[\u0030-\u007a]").Success ? "_" + project.Name : project.Name;
             dto.Image = _localCache.ToDataUrl(localAttributes.Thumbnail);
